@@ -6,7 +6,7 @@
 ## 📁 STRUCTURE DU PROJET
 
 ```
-nur-quran/
+-quran/
 ├── app/
 │   ├── globals.css          ← Design global (couleurs, fonts, animations)
 │   ├── layout.jsx           ← Layout racine Next.js
