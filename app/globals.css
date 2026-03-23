@@ -1,0 +1,106 @@
+/* ── IMPORTANT : @import doit être EN PREMIER ── */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-deep:       #0a0a0c;
+  --bg-card:       #111116;
+  --bg-card-hover: #16161e;
+  --gold:          #c9a84c;
+  --gold-light:    #e8c97a;
+  --gold-dim:      #7a6230;
+  --text-primary:  #f0ead6;
+  --text-secondary:#a09070;
+  --text-dim:      #5a5040;
+  --border:        rgba(201,168,76,0.15);
+  --border-bright: rgba(201,168,76,0.40);
+  --glow:          rgba(201,168,76,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Lato', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Geometric background ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(201,168,76,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 90% 80%,  rgba(201,168,76,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 40px, rgba(201,168,76,0.015) 40px, rgba(201,168,76,0.015) 41px),
+    repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(201,168,76,0.015) 40px, rgba(201,168,76,0.015) 41px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Typography helpers ── */
+.font-amiri  { font-family: 'Amiri', serif; }
+.font-cinzel { font-family: 'Cinzel', serif; }
+.font-lato   { font-family: 'Lato', sans-serif; }
+
+/* ── Spinner ── */
+.spinner {
+  display: inline-block;
+  width: 36px; height: 36px;
+  border: 2px solid var(--border);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Rotate slow (ornament login) ── */
+.rotate-slow { animation: rotateSlow 30s linear infinite; }
+@keyframes rotateSlow { to { transform: rotate(360deg); } }
+
+/* ── Card fade-in ── */
+.card-appear {
+  animation: fadeInUp 0.4s ease both;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Notification toast ── */
+.notif {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  z-index: 9999;
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-radius: 10px;
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; color: var(--text-primary);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.notif.show { transform: translateY(0); opacity: 1; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
