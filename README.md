@@ -1,176 +1,211 @@
-# NŪR — Plateforme Coran Interactive
-## Guide Complet pour VSCode
+# نور · FAITH Quran
+
+> Une plateforme web immersive dédiée au Noble Coran — lecture, compréhension et suivi personnel.
+
+
 
 ---
 
-## 📁 STRUCTURE DU PROJET
+## ✦ Aperçu
+
+**FAITH Quran** est une application Progressive Web App (PWA) permettant de lire les 114 sourates du Coran, d'en comprendre le sens grâce à l'intelligence artificielle, et de suivre sa progression de lecture — en arabe, français ou anglais.
+
+---
+
+## ✦ Fonctionnalités
+
+### 📖 Lecture
+- Les 114 sourates avec texte arabe complet
+- Traduction en **français** et **anglais**
+- Bismillah affiché automatiquement (sauf At-Tawbah)
+- Numérotation élégante de chaque verset
+
+### 📚 Explication par IA
+- Contexte de révélation *(Asbāb an-Nuzūl)*
+- Thème principal et message clé
+- Verset représentatif avec traduction
+- Vertus et bienfaits de la sourate
+- Disponible en **arabe**, **français** et **anglais**
+
+### ⭐ Favoris & Suivi
+- Marquer des sourates comme favorites
+- Marquer les sourates lues
+- Anneau de progression visuel
+- Données sauvegardées dans Supabase
+
+### 🛡 Dashboard Admin
+- Statistiques globales (utilisateurs, lectures, favoris)
+- Top 10 sourates les plus lues et les plus mises en favoris
+- Gestion des utilisateurs
+- Envoi de notifications à tous les utilisateurs
+- Accès protégé par code secret
+
+### 📲 PWA
+- Installable sur mobile et desktop
+- Fonctionne hors ligne (Service Worker)
+- Icônes adaptées iOS et Android
+
+---
+
+## ✦ Stack Technique
+
+| Couche | Technologie |
+|--------|-------------|
+| Frontend | Next.js 16 · React 18 |
+| Style | Tailwind CSS · CSS Variables |
+| Base de données | Supabase (PostgreSQL) |
+| IA | Groq API (LLaMA 3.3 70B) |
+| Données Coran | Al-Quran Cloud API |
+| Polices | Amiri · Cinzel · Lato |
+| Déploiement | Netlify |
+
+---
+
+## ✦ Structure du Projet
 
 ```
--quran/
+FAITH-Quran/
 ├── app/
-│   ├── globals.css          ← Design global (couleurs, fonts, animations)
-│   ├── layout.jsx           ← Layout racine Next.js
-│   └── page.jsx             ← Page principale (orchestrateur)
+│   ├── globals.css              ← Design & variables CSS
+│   ├── layout.jsx               ← Layout racine + PWA meta
+│   ├── page.jsx                 ← Orchestrateur principal
+│   └── api/
+│       ├── auth/route.js        ← Authentification admin
+│       ├── admin/route.js       ← API dashboard admin
+│       └── explain/route.js     ← Explications IA (Groq)
+├── app/admin/
+│   ├── page.jsx                 ← Login admin
+│   └── dashboard/page.jsx       ← Dashboard admin
 ├── components/
-│   ├── LoginScreen.jsx      ← Écran de connexion
-│   ├── Topbar.jsx           ← Barre de navigation
-│   ├── Notification.jsx     ← Toast de notification
-│   ├── SurahCard.jsx        ← Carte d'une sourate
-│   ├── HomePage.jsx         ← Grille des 114 sourates
-│   ├── SurahDetail.jsx      ← Page détail (lecture + explication)
-│   ├── FavoritesPage.jsx    ← Page favoris
-│   └── ProgressPage.jsx     ← Page suivi de lecture
+│   ├── LoginScreen.jsx          ← Écran de connexion + PWA install
+│   ├── Topbar.jsx               ← Navigation + déconnexion
+│   ├── HomePage.jsx             ← Grille 114 sourates
+│   ├── SurahCard.jsx            ← Carte sourate
+│   ├── SurahDetail.jsx          ← Lecture + Explication
+│   ├── FavoritesPage.jsx        ← Page favoris
+│   ├── ProgressPage.jsx         ← Suivi de lecture
+│   └── Notification.jsx         ← Toast de notification
 ├── lib/
-│   ├── surahs.js            ← Données des 114 sourates
-│   ├── quranApi.js          ← Appels API Al-Quran Cloud
-│   └── useStore.js          ← État global (localStorage)
-├── package.json
-├── next.config.js
-├── tailwind.config.js
-└── postcss.config.js
+│   ├── supabase.js              ← Client Supabase
+│   ├── adminAuth.js             ← Vérification session admin
+│   ├── useStore.js              ← État global (Supabase + local)
+│   ├── surahs.js                ← Données 114 sourates
+│   └── quranApi.js              ← API Al-Quran Cloud
+├── public/
+│   ├── manifest.json            ← Manifest PWA
+│   ├── sw.js                    ← Service Worker
+│   └── icons/                   ← Icônes PWA
+├── .env.local                   ← Variables d'environnement (privé)
+├── netlify.toml                 ← Configuration Netlify
+└── supabase-schema.sql          ← Schéma base de données
 ```
 
 ---
 
-## 🚀 INSTALLATION (étape par étape)
+## ✦ Installation
 
-### 1. Créer le dossier
+### Prérequis
+- Node.js v18+
+- Compte [Supabase](https://supabase.com) (gratuit)
+- Compte [Groq](https://console.groq.com) (gratuit, sans carte)
+- Compte [Netlify](https://netlify.com) (gratuit)
+
+### 1. Cloner le projet
+
 ```bash
-mkdir nur-quran
-cd nur-quran
+git clone https://github.com/CHAKRELLAH44/FAITH-Quran.git
+cd FAITH-Quran
 ```
 
-### 2. Copier tous les fichiers
-Copiez chaque fichier depuis ce guide dans les dossiers correspondants.
+### 2. Installer les dépendances
 
-### 3. Installer les dépendances
 ```bash
 npm install
 ```
 
-### 4. Lancer en développement
+### 3. Configurer les variables d'environnement
+
+Crée un fichier `.env.local` à la racine :
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://XXXX.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...
+SUPABASE_SERVICE_KEY=sb_secret_...
+GROQ_API_KEY=gsk_...
+ADMIN_SECRET_CODE=TonCodeSecretAdmin
+```
+
+### 4. Initialiser la base de données
+
+Dans **Supabase → SQL Editor**, exécute le contenu de `supabase-schema.sql`.
+
+### 5. Lancer en développement
+
 ```bash
 npm run dev
 ```
 
-### 5. Ouvrir dans le navigateur
-```
-http://localhost:3000
-```
+Ouvre [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## ⚙️ FONCTIONNEMENT
-
-### État (localStorage)
-- Chaque utilisateur a ses données sauvegardées sous la clé `nur_<username>`
-- Format : `{ favorites: [1, 18, 36], read: [1, 2, 5] }`
-- Pas de backend requis — tout est local
-
-### APIs utilisées
-| API | URL | Usage |
-|-----|-----|-------|
-| Al-Quran Cloud | `api.alquran.cloud/v1` | Texte arabe + traductions |
-| Anthropic Claude | `api.anthropic.com/v1/messages` | Explications IA |
-
-### Navigation (pages)
-| Page | Description |
-|------|-------------|
-| `home` | Grille des 114 sourates |
-| `detail` | Lecture + Explication d'une sourate |
-| `favorites` | Sourates mises en favoris |
-| `progress` | Suivi de lecture avec anneau |
-
----
-
-## 🎨 DESIGN — Variables CSS
-
-```css
---bg-deep:        #0a0a0c   /* Fond principal noir */
---bg-card:        #111116   /* Fond des cartes */
---gold:           #c9a84c   /* Or principal */
---gold-light:     #e8c97a   /* Or clair (texte arabe) */
---gold-dim:       #7a6230   /* Or sombre (accents) */
---text-primary:   #f0ead6   /* Texte principal blanc cassé */
---text-secondary: #a09070   /* Texte secondaire */
---text-dim:       #5a5040   /* Texte discret */
---border:         rgba(201,168,76,0.15)  /* Bordure discrète */
---border-bright:  rgba(201,168,76,0.40)  /* Bordure visible */
---glow:           rgba(201,168,76,0.08)  /* Fond lumineux */
-```
-
-### Polices
-- **Cinzel** → Titres, numéros (élégant, latin)
-- **Amiri** → Texte arabe (calligraphie)
-- **Lato** → Texte courant (lisible)
-
----
-
-## 🔧 PERSONNALISATION
-
-### Changer la langue d'explication (IA)
-Dans `SurahDetail.jsx`, modifiez le prompt :
-```js
-content: `Génère une explication en ARABE pour la sourate...`
-```
-
-### Ajouter une traduction
-Dans `quranApi.js`, ajoutez une édition :
-```js
-// Éditions disponibles sur api.alquran.cloud
-const edition = lang === 'fr' ? 'fr.hamidullah' :
-                lang === 'ar.muyassar' ? 'ar.muyassar' :
-                'en.sahih'
-```
-
-### Modifier les filtres
-Dans `HomePage.jsx` :
-```js
-// Changer les seuils short/long
-filter === 'short' ? s.ayahs <= 20 :    // ← modifier ici
-filter === 'long'  ? s.ayahs > 100 :    // ← modifier ici
-```
-
----
-
-## 🌐 DÉPLOIEMENT VERCEL (gratuit)
+## ✦ Déploiement sur Netlify
 
 ```bash
-# 1. Installer Vercel CLI
-npm install -g vercel
+# Pousser sur GitHub
+git add .
+git commit -m "deploy"
+git push
 
-# 2. Se connecter
-vercel login
-
-# 3. Déployer
-vercel --prod
+# Netlify redéploie automatiquement
 ```
 
-Ou directement sur vercel.com :
-1. Push votre code sur GitHub
-2. Importer le repo sur vercel.com
-3. Déploiement automatique ✅
+Sur [netlify.com](https://netlify.com) → importe le repo GitHub → ajoute les 5 variables d'environnement → Deploy.
 
 ---
 
-## ❓ PROBLÈMES FRÉQUENTS
+## ✦ Accès Admin
 
-| Problème | Solution |
-|----------|----------|
-| `Module not found` | Vérifiez les chemins d'import (`../lib/` vs `./lib/`) |
-| Texte arabe ne s'affiche pas | Vérifiez la police Amiri dans `globals.css` |
-| API ne répond pas | L'API alquran.cloud peut être lente, attendez quelques secondes |
-| Explication IA vide | La clé API Anthropic est gérée automatiquement par claude.ai |
-| Favoris perdus | Les données sont liées au `username` exact entré à la connexion |
+```
+https://ton-site.netlify.app/admin
+```
+
+Entre ton `ADMIN_SECRET_CODE` pour accéder au dashboard.
 
 ---
 
-## 📦 VERSIONS
+## ✦ APIs utilisées
 
-```json
-{
-  "next": "14.2.3",
-  "react": "^18",
-  "tailwindcss": "^3.4.3"
-}
+| API | Usage | Coût |
+|-----|-------|------|
+| [Al-Quran Cloud](https://alquran.cloud/api) | Texte arabe + traductions | Gratuit |
+| [Groq](https://console.groq.com) | Explications IA | Gratuit |
+| [Supabase](https://supabase.com) | Base de données | Gratuit |
+
+---
+
+## ✦ Palette de couleurs
+
+```css
+--gold:          #c9a84c   /* Or principal    */
+--gold-light:    #e8c97a   /* Or clair        */
+--gold-dim:      #7a6230   /* Or sombre       */
+--bg-deep:       #0a0a0c   /* Fond noir       */
+--text-primary:  #f0ead6   /* Texte principal */
 ```
+
+---
+
+## ✦ Licence
+
+MIT © 2025 — CHAKRELLAH44
+
+---
+
+<div align="center">
+
+بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+
+*Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux*
+
+</div>
