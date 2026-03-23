@@ -134,8 +134,8 @@ export default function AdminDashboard() {
         padding: '0 32px',
       }}>
         <div style={{ fontFamily: 'Cinzel, serif', fontSize: 18, fontWeight: 700, color: 'var(--gold)', letterSpacing: 4, display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontFamily: 'Amiri, serif', fontSize: 22, color: 'var(--gold-light)' }}>نور</span>
-          NŪR &nbsp;
+          <span style={{ fontFamily: 'Amiri, serif', fontSize: 22, color: 'var(--gold-light)' }}></span>
+          FAITH &nbsp;
           <span style={{ fontSize: 10, letterSpacing: 3, color: 'var(--text-dim)', fontWeight: 400, border: '1px solid var(--border)', padding: '2px 8px', borderRadius: 4 }}>ADMIN</span>
         </div>
 

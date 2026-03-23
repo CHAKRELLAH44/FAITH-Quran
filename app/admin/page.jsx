@@ -61,7 +61,7 @@ export default function AdminLogin() {
           ADMIN
         </div>
         <div style={{ fontFamily: 'Amiri, serif', fontSize: 18, color: 'var(--gold-light)', textAlign: 'center', marginBottom: 32 }}>
-          لوحة التحكم
+           
         </div>
 
         <label style={{ display: 'block', fontSize: 11, letterSpacing: 2, color: 'var(--gold)', textTransform: 'uppercase', marginBottom: 10 }}>

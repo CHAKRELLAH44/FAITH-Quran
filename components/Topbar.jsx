@@ -79,7 +79,7 @@ export default function Topbar({ username, read, page, onNav, onLogout }) {
           display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0,
         }}>
           <span style={{ fontFamily: 'Amiri, serif', fontSize: 24, color: 'var(--gold-light)', fontWeight: 400 }}>نور</span>
-          <span className="hide-mobile">NŪR</span>
+          <span className="hide-mobile">FAITH</span>
         </div>
 
         {/* Nav desktop — cachée sur mobile */}
