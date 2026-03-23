@@ -1,4 +1,4 @@
-# نور · FAITH Quran
+# إيمان · FAITH Quran
 
 > Une plateforme web immersive dédiée au Noble Coran — lecture, compréhension et suivi personnel.
 

@@ -79,23 +79,56 @@ export default function LoginScreen({ onLogin }) {
       padding: '40px 20px', position: 'relative', zIndex: 1,
     }}>
 
-      {/* ── Ornement animé ── */}
-      <div style={{ width: 120, height: 120, marginBottom: 32 }}>
-        <svg viewBox="0 0 120 120" fill="none" className="rotate-slow">
-          <g stroke="#c9a84c" strokeWidth="0.8" opacity="0.7">
-            <polygon points="60,8 72,32 98,32 78,50 86,76 60,60 34,76 42,50 22,32 48,32" fill="none"/>
-            <circle cx="60" cy="60" r="50" fill="none"/>
-            <circle cx="60" cy="60" r="38" fill="none" opacity="0.4"/>
-            <line x1="60" y1="10" x2="60" y2="110"/>
-            <line x1="10" y1="60" x2="110" y2="60"/>
-            <line x1="24" y1="24" x2="96" y2="96"/>
-            <line x1="96" y1="24" x2="24" y2="96"/>
-          </g>
-          <g stroke="#c9a84c" strokeWidth="0.5" opacity="0.4">
-            <circle cx="60" cy="60" r="28" fill="none"/>
-          </g>
-        </svg>
-      </div>
+      {/* ── Ornement animé — Mandala ── */}
+<div style={{ width: 160, height: 160, marginBottom: 32 }}>
+  <svg viewBox="0 0 120 120" fill="none" style={{ width: '100%', height: '100%' }}>
+    <style>{`
+      @keyframes spin1 { to { transform: rotate(360deg); } }
+      @keyframes spin2 { to { transform: rotate(-360deg); } }
+      @keyframes spin3 { to { transform: rotate(180deg); } }
+      @keyframes centerPulse {
+        0%, 100% { opacity: 0.5; transform: scale(1); }
+        50%       { opacity: 1;   transform: scale(1.1); }
+      }
+      .m-l1 { transform-origin: 60px 60px; animation: spin1 25s linear infinite; }
+      .m-l2 { transform-origin: 60px 60px; animation: spin2 18s linear infinite; }
+      .m-l3 { transform-origin: 60px 60px; animation: spin3 10s linear infinite; }
+      .m-center { transform-origin: 60px 60px; animation: centerPulse 2s ease-in-out infinite; }
+    `}</style>
+
+    {/* Couche 1 — lente */}
+    <g className="m-l1">
+      <circle cx="60" cy="60" r="52" stroke="#c9a84c" strokeWidth="0.4"
+        strokeDasharray="3 8" opacity="0.4"/>
+      <polygon
+        points="60,8 63,57 112,60 63,63 60,112 57,63 8,60 57,57"
+        stroke="#c9a84c" strokeWidth="0.6" opacity="0.4"/>
+    </g>
+
+    {/* Couche 2 — moyenne */}
+    <g className="m-l2">
+      <circle cx="60" cy="60" r="38" stroke="#c9a84c" strokeWidth="0.5"
+        strokeDasharray="2 5" opacity="0.5"/>
+      <polygon
+        points="60,22 62.5,57.5 98,60 62.5,62.5 60,98 57.5,62.5 22,60 57.5,57.5"
+        stroke="#c9a84c" strokeWidth="0.8" opacity="0.5"/>
+    </g>
+
+    {/* Couche 3 — rapide */}
+    <g className="m-l3">
+      <circle cx="60" cy="60" r="24" stroke="#c9a84c" strokeWidth="0.6" opacity="0.6"/>
+      <polygon
+        points="60,36 62,58 84,60 62,62 60,84 58,62 36,60 58,58"
+        stroke="#c9a84c" strokeWidth="1" opacity="0.7"/>
+    </g>
+
+    {/* Centre pulsant */}
+    <g className="m-center">
+      <circle cx="60" cy="60" r="5" fill="#c9a84c" opacity="0.8"/>
+      <circle cx="60" cy="60" r="2.5" fill="#e8c97a"/>
+    </g>
+  </svg>
+</div>
 
       {/* ── Bismillah ── */}
       <div style={{
@@ -106,12 +139,12 @@ export default function LoginScreen({ onLogin }) {
         بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
       </div>
 
-      {/* ── Titre NŪR ── */}
+      {/* ── Titre FAITH ── */}
       <div style={{
         fontFamily: 'Cinzel, serif', fontSize: 'clamp(36px, 6vw, 64px)',
         fontWeight: 700, color: 'var(--gold)', letterSpacing: 8,
         textAlign: 'center', marginBottom: 8,
-      }}>NŪR</div>
+      }}>FAITH ✦ إيمان</div>
 
       <div style={{
         color: 'var(--text-secondary)', fontSize: 14, letterSpacing: 2,
