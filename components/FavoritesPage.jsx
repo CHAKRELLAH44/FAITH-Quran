@@ -11,7 +11,7 @@ export default function FavoritesPage({ surahs, favorites, read, isFav, isRead, 
         display: 'flex', alignItems: 'center', gap: 16,
         marginBottom: 40, paddingBottom: 24, borderBottom: '1px solid var(--border)',
       }}>
-        <span style={{ fontSize: 28 }}>⭐</span>
+        <span style={{ fontSize: 28 }}>✦</span>
         <span style={{ fontFamily: 'Cinzel, serif', fontSize: 24, fontWeight: 700, color: 'var(--text-primary)' }}>
           Mes Favoris
         </span>
@@ -22,7 +22,7 @@ export default function FavoritesPage({ surahs, favorites, read, isFav, isRead, 
 
       {favSurahs.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '80px 20px', color: 'var(--text-dim)' }}>
-          <div style={{ fontSize: 48, marginBottom: 16, opacity: 0.5 }}>⭐</div>
+          <div style={{ fontSize: 48, marginBottom: 16, opacity: 0.5 }}>✦</div>
           <div style={{ fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>
             Aucun favori pour l'instant.<br />
             Ajoutez des sourates depuis leur page de lecture.

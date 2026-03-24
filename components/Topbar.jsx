@@ -78,7 +78,7 @@ export default function Topbar({ username, read, page, onNav, onLogout }) {
           color: 'var(--gold)', letterSpacing: 4, cursor: 'pointer',
           display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0,
         }}>
-          <span style={{ fontFamily: 'Amiri, serif', fontSize: 24, color: 'var(--gold-light)', fontWeight: 400 }}>نور</span>
+          <span style={{ fontFamily: 'Amiri, serif', fontSize: 24, color: 'var(--gold-light)', fontWeight: 400 }}>إيمان</span>
           <span className="hide-mobile">FAITH</span>
         </div>
 
